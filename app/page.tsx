@@ -1,10 +1,10 @@
 "use client";
 
 import { usePaletteStore, HarmonyType } from "@/lib/store";
-import { LiveMockup } from "./components/LiveMockup";
+import { MockupSwitcher } from "./components/MockupSwitcher"; // <--- Updated Import
 import { PaletteOutput } from "./components/PaletteOutput";
 import { CodeExport } from "./components/CodeExport";
-import { Sliders, Zap, Layers, Palette } from "lucide-react"; // Make sure to install lucide-react if missing
+import { Sliders, Zap, Layers, Palette } from "lucide-react"; 
 
 export default function Home() {
   const { baseColor, harmony, setBaseColor, setHarmony } = usePaletteStore();
@@ -104,7 +104,10 @@ export default function Home() {
                 <h2 className="text-lg font-bold text-slate-800">Live Preview</h2>
                 <span className="text-xs font-medium text-slate-400 bg-white px-2 py-1 rounded-md border border-slate-100">Interactive</span>
              </div>
-             <LiveMockup />
+             
+             {/* Swapped LiveMockup for MockupSwitcher */}
+             <MockupSwitcher /> 
+             
           </div>
 
           {/* 2. Grid for Details (Palette + Code) */}
