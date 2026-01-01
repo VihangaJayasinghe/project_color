@@ -4,7 +4,8 @@ import { usePaletteStore, HarmonyType } from "@/lib/store";
 import { MockupSwitcher } from "./components/MockupSwitcher"; 
 import { PaletteOutput } from "./components/PaletteOutput";
 import { CodeExport } from "./components/CodeExport";
-import { ColorWheel } from "./components/ColorWheel"; // <--- Ensure this component is created as per previous instruction!
+import { ColorWheel } from "./components/ColorWheel"; 
+import { ContrastChecker } from "./components/ContrastChecker"; // <--- Imported
 import { Sliders, Zap, Layers, Palette } from "lucide-react"; 
 
 export default function Home() {
@@ -21,8 +22,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-primary-100 selection:text-primary-900">
       
-      {/* MAIN LAYOUT: CSS GRID */}
-      {/* Mobile: 1 Column. Desktop: 12 Columns (3 for Sidebar, 9 for Content) */}
+      {/* MAIN LAYOUT */}
       <main className="max-w-[1600px] mx-auto p-4 md:p-6 lg:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
         {/* === LEFT COLUMN: CONTROL STATION (Sticky) === */}
@@ -108,7 +108,7 @@ export default function Home() {
              <MockupSwitcher /> 
           </div>
 
-          {/* 2. Grid for Details (Palette + Wheel + Code) */}
+          {/* 2. Grid for Details (Palette + Analysis + Code) */}
           <div className="grid grid-cols-1 xl:grid-cols-12 gap-8">
             
             {/* LEFT: The Visual Palette Cards (Takes up 8 cols) */}
@@ -119,12 +119,21 @@ export default function Home() {
               </div>
             </div>
 
-            {/* RIGHT: The Color Wheel (Takes up 4 cols) */}
-            <div className="xl:col-span-4 space-y-3">
-               <h2 className="text-lg font-bold text-slate-800">Harmony Logic</h2>
-               <div className="h-full">
-                  <ColorWheel />
+            {/* RIGHT: Analysis Tools (Takes up 4 cols) */}
+            <div className="xl:col-span-4 space-y-6">
+               
+               {/* A. Harmony Wheel */}
+               <div className="space-y-3">
+                   <h2 className="text-lg font-bold text-slate-800">Harmony Map</h2>
+                   <ColorWheel />
                </div>
+
+               {/* B. Contrast Checker (NEW) */}
+               <div className="space-y-3">
+                   <h2 className="text-lg font-bold text-slate-800">Safety Check</h2>
+                   <ContrastChecker />
+               </div>
+
             </div>
 
             {/* BOTTOM: Code Export (Full Width) */}
