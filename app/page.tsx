@@ -6,9 +6,8 @@ import { PaletteOutput } from "./components/PaletteOutput";
 import { CodeExport } from "./components/CodeExport";
 import { ColorWheel } from "./components/ColorWheel"; 
 import { ContrastChecker } from "./components/ContrastChecker"; 
-import { Sliders, Zap, Layers, Palette } from "lucide-react"; 
-// 1. IMPORT THE TOUR COMPONENT
 import { OnboardingTour } from "./components/OnboardingTour";
+import { Sliders, Zap, Layers, Palette } from "lucide-react"; 
 
 export default function Home() {
   const { baseColor, harmony, setBaseColor, setHarmony } = usePaletteStore();
@@ -16,147 +15,96 @@ export default function Home() {
   const harmonies: { id: HarmonyType; label: string; icon: any }[] = [
     { id: "analogous", label: "Analogous", icon: Layers },
     { id: "monochromatic", label: "Monochromatic", icon: Palette },
-    { id: "split-complementary", label: "Split Comp", icon: Zap },
+    { id: "split-complementary", label: "Split", icon: Zap },
     { id: "triadic", label: "Triadic", icon: Sliders },
     { id: "complementary", label: "Complementary", icon: Layers },
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-primary-100 selection:text-primary-900">
+    <div className="min-h-screen lg:h-screen bg-slate-50 text-slate-900 font-sans selection:bg-primary-100 selection:text-primary-900 lg:overflow-hidden flex flex-col">
       
-      {/* 2. MOUNT THE TOUR (It will run once on first visit) */}
       <OnboardingTour />
 
-      {/* MAIN LAYOUT */}
-      <main className="max-w-[1600px] mx-auto p-4 md:p-6 lg:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      {/* MAIN GRID */}
+      {/* Added 'h-full' to ensure the grid takes up all available vertical space */}
+      <main className="flex-1 w-full grid grid-cols-1 lg:grid-cols-12 gap-0 h-full">
         
-        {/* === LEFT COLUMN: CONTROL STATION (Sticky) === */}
-        <aside className="lg:col-span-3 flex flex-col gap-6 lg:sticky lg:top-8 z-10">
-          
-          {/* 1. Brand / Title */}
-          <div className="mb-2">
-            <h1 className="text-2xl font-black tracking-tight text-slate-900 flex items-center gap-2">
-              <div className="w-8 h-8 bg-slate-900 rounded-lg"></div>
-              ColorEngine
-            </h1>
-            <p className="text-sm text-slate-500 font-medium mt-1">Design system generator</p>
-          </div>
-
-          {/* 2. The "Smart" Color Picker Card */}
-          {/* ID ADDED FOR TOUR */}
-          <div id="tour-brand-picker" className="bg-white p-5 rounded-2xl shadow-sm border border-slate-200/60">
-            <label className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 block">
-              Base Color
-            </label>
-            
-            <div className="relative group cursor-pointer">
-              {/* The Visual Swatch */}
-              <div 
-                className="w-full h-24 rounded-xl shadow-inner border border-slate-100 transition-all duration-300 group-hover:scale-[1.02]"
-                style={{ backgroundColor: baseColor }}
-              />
-              
-              {/* The Hex Text Overlay */}
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <span className="bg-white/90 backdrop-blur-sm px-3 py-1 rounded-md text-xs font-mono font-bold text-slate-800 shadow-sm uppercase">
-                  {baseColor}
-                </span>
-              </div>
-
-              {/* The Invisible Input */}
-              <input
-                type="color"
-                value={baseColor}
-                onChange={(e) => setBaseColor(e.target.value)}
-                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-              />
+        {/* === LEFT SIDEBAR === */}
+        {/* Added 'lg:h-full' */}
+        <aside className="lg:col-span-2 bg-white border-b lg:border-b-0 lg:border-r border-slate-200 flex flex-col lg:h-full lg:overflow-y-auto z-20">
+            <div className="p-4 border-b border-slate-100 flex justify-between items-center">
+                <h1 className="text-xl font-black tracking-tight text-slate-900 flex items-center gap-2">
+                <div className="w-6 h-6 bg-slate-900 rounded-md"></div>
+                ColorEngine
+                </h1>
+                <span className="lg:hidden text-xs font-bold text-slate-400 bg-slate-100 px-2 py-1 rounded">v2.0</span>
             </div>
-            <p className="text-xs text-slate-400 mt-3 text-center">Click swatch to change</p>
-          </div>
 
-          {/* 3. Harmony Selector List */}
-          {/* ID ADDED FOR TOUR */}
-          <div id="tour-harmony-selector" className="bg-white p-5 rounded-2xl shadow-sm border border-slate-200/60 flex flex-col gap-2">
-            <label className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">
-              Harmony Mode
-            </label>
-            {harmonies.map((h) => {
-              const Icon = h.icon;
-              const isActive = harmony === h.id;
-              return (
-                <button
-                  key={h.id}
-                  onClick={() => setHarmony(h.id)}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-200 ${
-                    isActive
-                      ? "bg-slate-900 text-white shadow-md transform scale-[1.02]"
-                      : "bg-slate-50 text-slate-600 hover:bg-slate-100 hover:text-slate-900"
-                  }`}
-                >
-                  <Icon className={`w-4 h-4 ${isActive ? "text-slate-300" : "text-slate-400"}`} />
-                  {h.label}
-                </button>
-              );
-            })}
-          </div>
+            <div className="p-4 space-y-6">
+                {/* 1. Picker */}
+                <div id="tour-brand-picker">
+                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 block">Base Color</label>
+                    <div className="relative group cursor-pointer w-full h-16 rounded-xl shadow-inner border border-slate-100 overflow-hidden" style={{ backgroundColor: baseColor }}>
+                        <input type="color" value={baseColor} onChange={(e) => setBaseColor(e.target.value)} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
+                    </div>
+                </div>
 
+                {/* 2. Harmony List */}
+                <div id="tour-harmony-selector">
+                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 block">Harmony</label>
+                    <div className="flex flex-row lg:flex-col gap-2 overflow-x-auto pb-2 lg:pb-0 scrollbar-hide">
+                        {harmonies.map((h) => {
+                            const Icon = h.icon;
+                            const isActive = harmony === h.id;
+                            return (
+                                <button key={h.id} onClick={() => setHarmony(h.id)} className={`flex items-center gap-2 lg:gap-3 px-3 py-2 rounded-lg text-xs font-semibold transition-all whitespace-nowrap ${isActive ? "bg-slate-900 text-white" : "text-slate-600 hover:bg-slate-50 border border-slate-100 lg:border-0"}`}>
+                                    <Icon className="w-3.5 h-3.5" /> {h.label}
+                                </button>
+                            );
+                        })}
+                    </div>
+                </div>
+
+                <div className="hidden sm:block lg:block">
+                   <ColorWheel />
+                </div>
+            </div>
         </aside>
 
 
-        {/* === RIGHT COLUMN: WORKSPACE === */}
-        <section className="lg:col-span-9 flex flex-col gap-8">
-          
-          {/* 1. Live Mockup */}
-          <div className="space-y-3">
-             <div className="flex items-center justify-between">
-                <h2 className="text-lg font-bold text-slate-800">Live Preview</h2>
-                <span className="text-xs font-medium text-slate-400 bg-white px-2 py-1 rounded-md border border-slate-100">Interactive</span>
-             </div>
-             <MockupSwitcher /> 
-          </div>
-
-          {/* 2. Grid for Details */}
-          <div className="grid grid-cols-1 xl:grid-cols-12 gap-8">
+        {/* === MIDDLE COLUMN === */}
+        {/* FIX: Added 'lg:h-full' and 'lg:min-h-0'. This prevents the grid item from growing beyond the viewport. */}
+        <section className="lg:col-span-8 bg-slate-50/50 lg:h-full lg:min-h-0 lg:overflow-y-auto p-4 lg:p-8 flex flex-col gap-8 scroll-smooth">
             
-            {/* LEFT: Visual Palette */}
-            <div className="xl:col-span-8 space-y-3">
-              <h2 className="text-lg font-bold text-slate-800">Visual Palette</h2>
-              {/* ID ADDED FOR TOUR */}
-              <div id="tour-visual-palette" className="bg-white p-6 rounded-3xl border border-slate-200/60 shadow-sm h-full">
-                 <PaletteOutput />
-              </div>
+            <div className="space-y-3">
+                <MockupSwitcher /> 
             </div>
 
-            {/* RIGHT: Analysis Tools */}
-            <div className="xl:col-span-4 space-y-6">
-               
-               {/* A. Harmony Wheel */}
-               <div className="space-y-3">
-                   <h2 className="text-lg font-bold text-slate-800">Harmony Map</h2>
-                   <ColorWheel />
-               </div>
-
-               {/* B. Contrast Checker */}
-               {/* ID ADDED FOR TOUR */}
-               <div id="tour-contrast-checker" className="space-y-3">
-                   <h2 className="text-lg font-bold text-slate-800">Safety Check</h2>
-                   <ContrastChecker />
-               </div>
-
+            <div id="tour-contrast-checker" className="space-y-3">
+                <h2 className="text-lg font-bold text-slate-800">Safety Check</h2>
+                <ContrastChecker />
             </div>
 
-            {/* BOTTOM: Code Export */}
-            {/* ID ADDED FOR TOUR */}
-            <div id="tour-export-section" className="xl:col-span-12 space-y-3 mt-12">
-              <h2 className="text-lg font-bold text-slate-800">Export Code</h2>
-              <div className="h-full">
-                 <CodeExport />
-              </div>
+            <div id="tour-export-section" className="space-y-3">
+                <h2 className="text-lg font-bold text-slate-800">Export</h2>
+                <CodeExport />
             </div>
-
-          </div>
-
+            
+            <div className="h-12 lg:hidden"></div>
         </section>
+
+
+        {/* === RIGHT SIDEBAR === */}
+        {/* Added 'lg:h-full' */}
+        <aside className="lg:col-span-2 bg-white border-t lg:border-t-0 lg:border-l border-slate-200 flex flex-col lg:h-full z-20">
+            <div className="p-4 border-b border-slate-100 bg-white">
+                <h2 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Generated Palette</h2>
+            </div>
+            
+            <div id="tour-visual-palette" className="flex-1 lg:overflow-y-auto p-4 bg-slate-50/30">
+                <PaletteOutput />
+            </div>
+        </aside>
 
       </main>
     </div>

@@ -58,7 +58,7 @@ export const BrandGuidelines = forwardRef<HTMLDivElement>((props, ref) => {
             <div className="bg-white rounded-3xl overflow-hidden border border-slate-200 p-8 shadow-sm">
                <div className="[&>div]:shadow-none [&>div]:border-0 [&>div]:p-0">
                  {/* FORCE PRINT MODE: Shows both Text and Color comparisons */}
-                 <ContrastChecker printMode={true} />
+                 <ContrastChecker />
                </div>
             </div>
          </section>
