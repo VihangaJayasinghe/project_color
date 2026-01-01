@@ -88,8 +88,8 @@ export function LiveMockup() {
               </div>
             </div>
 
-            {/* Card 2 */}
-            <div className="p-6 rounded-2xl bg-white border border-secondary-200 shadow-xl flex items-start gap-4 translate-x-4 hover:-translate-y-1 transition-transform duration-300">
+            {/* Card 2: REMOVED 'translate-x-4' to align it */}
+            <div className="p-6 rounded-2xl bg-white border border-secondary-200 shadow-xl flex items-start gap-4 hover:-translate-y-1 transition-transform duration-300">
               <div className="p-3 rounded-lg bg-secondary-100 text-secondary-600">
                 <Zap className="w-6 h-6" />
               </div>

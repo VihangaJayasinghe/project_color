@@ -128,7 +128,7 @@ export default function Home() {
             </div>
 
             {/* BOTTOM: Code Export (Full Width) */}
-            <div className="xl:col-span-12 space-y-3">
+            <div className="xl:col-span-12 space-y-3 mt-12">
               <h2 className="text-lg font-bold text-slate-800">Export Code</h2>
               <div className="h-full">
                  <CodeExport />

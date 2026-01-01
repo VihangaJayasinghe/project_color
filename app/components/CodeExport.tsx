@@ -1,5 +1,7 @@
+"use client";
+
 import { useState } from "react";
-import { usePaletteStore } from "../../lib/store"; // Relative import!
+import { usePaletteStore } from "@/lib/store";
 import { Check, Copy, FileJson, FileCode, Hash } from "lucide-react";
 
 export function CodeExport() {
@@ -7,7 +9,7 @@ export function CodeExport() {
   const [activeTab, setActiveTab] = useState<"tailwind" | "css" | "scss">("tailwind");
   const [copied, setCopied] = useState(false);
 
-  // 1. GENERATORS: These functions turn your data into text
+  // 1. GENERATORS
   const getTailwindCode = () => {
     return `// tailwind.config.js
 module.exports = {
@@ -31,12 +33,11 @@ module.exports = {
           50: '${secondary[50]}',
           500: '${secondary[500]}',
           900: '${secondary[900]}',
-          // ... add others as needed
+          // ...
         },
         accent: {
           500: '${accent[500]}',
-          600: '${accent[600]}',
-          // ... add others as needed
+          // ...
         },
       }
     }
@@ -77,7 +78,6 @@ $theme-colors: (
 );`;
   };
 
-  // Decide which code to show
   const currentCode = 
     activeTab === "tailwind" ? getTailwindCode() 
     : activeTab === "css" ? getCSSCode() 
@@ -90,43 +90,43 @@ $theme-colors: (
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto bg-slate-900 rounded-2xl overflow-hidden shadow-2xl border border-slate-800 my-10">
+    <div className="w-full bg-slate-900 rounded-2xl overflow-hidden shadow-2xl border border-slate-800 h-full flex flex-col">
       
-      {/* Header / Tabs */}
-      <div className="flex items-center justify-between px-4 py-3 bg-slate-950 border-b border-slate-800">
-        <div className="flex gap-2">
+      {/* Header / Tabs - Increased padding to py-4 */}
+      <div className="flex flex-col sm:flex-row items-center justify-between px-4 py-4 bg-slate-950 border-b border-slate-800 gap-3">
+        <div className="flex bg-slate-900 p-1 rounded-lg border border-slate-800">
           <TabButton 
             active={activeTab === "tailwind"} 
             onClick={() => setActiveTab("tailwind")} 
             label="Tailwind" 
-            icon={<FileJson className="w-4 h-4" />} 
+            icon={<FileJson className="w-3.5 h-3.5" />} 
           />
           <TabButton 
             active={activeTab === "css"} 
             onClick={() => setActiveTab("css")} 
-            label="CSS Variables" 
-            icon={<Hash className="w-4 h-4" />} 
+            label="CSS" 
+            icon={<Hash className="w-3.5 h-3.5" />} 
           />
           <TabButton 
             active={activeTab === "scss"} 
             onClick={() => setActiveTab("scss")} 
             label="SCSS" 
-            icon={<FileCode className="w-4 h-4" />} 
+            icon={<FileCode className="w-3.5 h-3.5" />} 
           />
         </div>
 
         <button 
           onClick={handleCopy}
-          className="flex items-center gap-2 px-4 py-2 text-xs font-bold text-slate-900 bg-white rounded-lg hover:bg-slate-200 transition-colors"
+          className="flex items-center gap-2 px-4 py-2 text-xs font-bold text-slate-900 bg-white rounded-lg hover:bg-slate-200 transition-colors w-full sm:w-auto justify-center shadow-lg shadow-white/5"
         >
           {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
           {copied ? "Copied!" : "Copy Code"}
         </button>
       </div>
 
-      {/* Code Area */}
-      <div className="p-6 overflow-x-auto relative group">
-        <pre className="text-sm font-mono leading-relaxed text-blue-100">
+      {/* Code Area - Added pt-6 to push text down from the border */}
+      <div className="p-6 pt-6 overflow-x-auto relative group flex-1 bg-[#0d1117] scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
+        <pre className="text-xs sm:text-sm font-mono leading-relaxed text-blue-100">
           <code>{currentCode}</code>
         </pre>
       </div>
@@ -138,10 +138,10 @@ function TabButton({ active, onClick, label, icon }: any) {
   return (
     <button
       onClick={onClick}
-      className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+      className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-bold transition-all ${
         active 
-          ? "bg-slate-800 text-white shadow-lg" 
-          : "text-slate-500 hover:text-slate-300 hover:bg-slate-900"
+          ? "bg-slate-800 text-white shadow-sm ring-1 ring-white/10" 
+          : "text-slate-500 hover:text-slate-300 hover:bg-slate-800/50"
       }`}
     >
       {icon}
