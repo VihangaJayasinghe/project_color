@@ -5,8 +5,10 @@ import { MockupSwitcher } from "./components/MockupSwitcher";
 import { PaletteOutput } from "./components/PaletteOutput";
 import { CodeExport } from "./components/CodeExport";
 import { ColorWheel } from "./components/ColorWheel"; 
-import { ContrastChecker } from "./components/ContrastChecker"; // <--- Imported
+import { ContrastChecker } from "./components/ContrastChecker"; 
 import { Sliders, Zap, Layers, Palette } from "lucide-react"; 
+// 1. IMPORT THE TOUR COMPONENT
+import { OnboardingTour } from "./components/OnboardingTour";
 
 export default function Home() {
   const { baseColor, harmony, setBaseColor, setHarmony } = usePaletteStore();
@@ -22,6 +24,9 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-primary-100 selection:text-primary-900">
       
+      {/* 2. MOUNT THE TOUR (It will run once on first visit) */}
+      <OnboardingTour />
+
       {/* MAIN LAYOUT */}
       <main className="max-w-[1600px] mx-auto p-4 md:p-6 lg:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
@@ -38,7 +43,8 @@ export default function Home() {
           </div>
 
           {/* 2. The "Smart" Color Picker Card */}
-          <div className="bg-white p-5 rounded-2xl shadow-sm border border-slate-200/60">
+          {/* ID ADDED FOR TOUR */}
+          <div id="tour-brand-picker" className="bg-white p-5 rounded-2xl shadow-sm border border-slate-200/60">
             <label className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 block">
               Base Color
             </label>
@@ -57,7 +63,7 @@ export default function Home() {
                 </span>
               </div>
 
-              {/* The Invisible Input (Covers the whole div) */}
+              {/* The Invisible Input */}
               <input
                 type="color"
                 value={baseColor}
@@ -69,7 +75,8 @@ export default function Home() {
           </div>
 
           {/* 3. Harmony Selector List */}
-          <div className="bg-white p-5 rounded-2xl shadow-sm border border-slate-200/60 flex flex-col gap-2">
+          {/* ID ADDED FOR TOUR */}
+          <div id="tour-harmony-selector" className="bg-white p-5 rounded-2xl shadow-sm border border-slate-200/60 flex flex-col gap-2">
             <label className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">
               Harmony Mode
             </label>
@@ -99,7 +106,7 @@ export default function Home() {
         {/* === RIGHT COLUMN: WORKSPACE === */}
         <section className="lg:col-span-9 flex flex-col gap-8">
           
-          {/* 1. Live Mockup (The Hero) */}
+          {/* 1. Live Mockup */}
           <div className="space-y-3">
              <div className="flex items-center justify-between">
                 <h2 className="text-lg font-bold text-slate-800">Live Preview</h2>
@@ -108,18 +115,19 @@ export default function Home() {
              <MockupSwitcher /> 
           </div>
 
-          {/* 2. Grid for Details (Palette + Analysis + Code) */}
+          {/* 2. Grid for Details */}
           <div className="grid grid-cols-1 xl:grid-cols-12 gap-8">
             
-            {/* LEFT: The Visual Palette Cards (Takes up 8 cols) */}
+            {/* LEFT: Visual Palette */}
             <div className="xl:col-span-8 space-y-3">
               <h2 className="text-lg font-bold text-slate-800">Visual Palette</h2>
-              <div className="bg-white p-6 rounded-3xl border border-slate-200/60 shadow-sm h-full">
+              {/* ID ADDED FOR TOUR */}
+              <div id="tour-visual-palette" className="bg-white p-6 rounded-3xl border border-slate-200/60 shadow-sm h-full">
                  <PaletteOutput />
               </div>
             </div>
 
-            {/* RIGHT: Analysis Tools (Takes up 4 cols) */}
+            {/* RIGHT: Analysis Tools */}
             <div className="xl:col-span-4 space-y-6">
                
                {/* A. Harmony Wheel */}
@@ -128,16 +136,18 @@ export default function Home() {
                    <ColorWheel />
                </div>
 
-               {/* B. Contrast Checker (NEW) */}
-               <div className="space-y-3">
+               {/* B. Contrast Checker */}
+               {/* ID ADDED FOR TOUR */}
+               <div id="tour-contrast-checker" className="space-y-3">
                    <h2 className="text-lg font-bold text-slate-800">Safety Check</h2>
                    <ContrastChecker />
                </div>
 
             </div>
 
-            {/* BOTTOM: Code Export (Full Width) */}
-            <div className="xl:col-span-12 space-y-3 mt-12">
+            {/* BOTTOM: Code Export */}
+            {/* ID ADDED FOR TOUR */}
+            <div id="tour-export-section" className="xl:col-span-12 space-y-3 mt-12">
               <h2 className="text-lg font-bold text-slate-800">Export Code</h2>
               <div className="h-full">
                  <CodeExport />
