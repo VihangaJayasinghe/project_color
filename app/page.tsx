@@ -1,9 +1,10 @@
 "use client";
 
 import { usePaletteStore, HarmonyType } from "@/lib/store";
-import { MockupSwitcher } from "./components/MockupSwitcher"; // <--- Updated Import
+import { MockupSwitcher } from "./components/MockupSwitcher"; 
 import { PaletteOutput } from "./components/PaletteOutput";
 import { CodeExport } from "./components/CodeExport";
+import { ColorWheel } from "./components/ColorWheel"; // <--- Ensure this component is created as per previous instruction!
 import { Sliders, Zap, Layers, Palette } from "lucide-react"; 
 
 export default function Home() {
@@ -104,25 +105,30 @@ export default function Home() {
                 <h2 className="text-lg font-bold text-slate-800">Live Preview</h2>
                 <span className="text-xs font-medium text-slate-400 bg-white px-2 py-1 rounded-md border border-slate-100">Interactive</span>
              </div>
-             
-             {/* Swapped LiveMockup for MockupSwitcher */}
              <MockupSwitcher /> 
-             
           </div>
 
-          {/* 2. Grid for Details (Palette + Code) */}
-          <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+          {/* 2. Grid for Details (Palette + Wheel + Code) */}
+          <div className="grid grid-cols-1 xl:grid-cols-12 gap-8">
             
-            {/* Visual Palette */}
-            <div className="space-y-3">
+            {/* LEFT: The Visual Palette Cards (Takes up 8 cols) */}
+            <div className="xl:col-span-8 space-y-3">
               <h2 className="text-lg font-bold text-slate-800">Visual Palette</h2>
               <div className="bg-white p-6 rounded-3xl border border-slate-200/60 shadow-sm h-full">
                  <PaletteOutput />
               </div>
             </div>
 
-            {/* Code Export */}
-            <div className="space-y-3">
+            {/* RIGHT: The Color Wheel (Takes up 4 cols) */}
+            <div className="xl:col-span-4 space-y-3">
+               <h2 className="text-lg font-bold text-slate-800">Harmony Logic</h2>
+               <div className="h-full">
+                  <ColorWheel />
+               </div>
+            </div>
+
+            {/* BOTTOM: Code Export (Full Width) */}
+            <div className="xl:col-span-12 space-y-3">
               <h2 className="text-lg font-bold text-slate-800">Export Code</h2>
               <div className="h-full">
                  <CodeExport />
