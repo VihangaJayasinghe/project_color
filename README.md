@@ -1,36 +1,37 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Intelligent Design System & Color Engine
 
-## Getting Started
+### 🚀 **Live Demo:** [Click here to view the Website](https://project-color.vercel.app)
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 📖 Overview
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**Intelligent Design System & Color Engine** is a developer-centric tool that bridges the gap between design creativity and engineering implementation. 
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Unlike standard color pickers, this application doesn't just give you a hex code. It uses mathematical algorithms to generate **production-ready design systems**, complete with 10-shade harmonic scales, real-time accessibility auditing, and instant UI visualization.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ✨ Key Features
 
-## Learn More
+- **🎨 Algorithmic Scale Generation:** Instantly creates 10-step monochromatic scales (50–900) based on relative luminance, mimicking modern frameworks like Tailwind CSS.
+- **👁️ Real-Time UI Preview:** Visualizes your palette on a live, interactive landing page mockup (60fps updates via CSS Variables).
+- **♿ Automated Accessibility:** Integrated WCAG 2.1 AA/AAA contrast checker that flags legibility issues in real-time.
+- **📦 Developer Exports:** One-click export for `tailwind.config.js`, SCSS variables, and CSS Custom Properties.
+- **🌗 Smart Theming:** Automatically calculates and previews Dark Mode variants.
 
-To learn more about Next.js, take a look at the following resources:
+## 🛠️ Tech Stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Framework:** [Next.js](https://nextjs.org/) (React)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **State Management:** Zustand
+- **Color Logic:** Colord (Client-side vector math)
+- **Icons:** Lucide React
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## ⚡ Getting Started Locally
 
-## Deploy on Vercel
+If you want to run this project on your local machine:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. **Clone the repository**
+   ```bash
+   git clone [https://github.com/your-username/your-repo-name.git](https://github.com/your-username/your-repo-name.git)
+   cd your-repo-name
